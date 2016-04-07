@@ -25,7 +25,10 @@ func main() {
 		case "BEGIN":
 			database.Begin()
 		case "COMMIT":
-			database.Commit()
+			err := database.Commit()
+			if err != nil {
+				fmt.Println(err)
+			}
 		case "GET":
 			result, err := database.Get(args[1])
 			if err != nil {

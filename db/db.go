@@ -26,8 +26,13 @@ func (db *Database) Begin() {
 }
 
 // Commit - clears the transaction history
-func (db *Database) Commit() {
-	db.history = []map[string]value{}
+func (db *Database) Commit() error {
+	if len(db.history) > 0 {
+		db.history = []map[string]value{}
+		return nil
+	} else {
+		return errors.New("NO TRANSACTION")
+	}
 }
 
 // Get - get key's value, if key is not presented in database - return error
